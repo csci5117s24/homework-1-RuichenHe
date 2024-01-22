@@ -7,7 +7,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/accept')
-def decline():
+def accept():
     return render_template('survey.html')
 
 @app.route('/decline')
