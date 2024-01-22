@@ -6,12 +6,12 @@ You are required to fill out all of the following sections to help us grade your
 
 ## Student (to be completed individually)
 
-* First Last, x500@umn.edu
+* First Last, he000239@umn.edu
 
 ## Link to Site
 (This should be hosted, accessible, and working, per the technical requirements)
 
-<https://TODO.com/>
+<https://echospective.onrender.com>
 
 ## Task completion Notes
 
