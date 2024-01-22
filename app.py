@@ -6,6 +6,10 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route('/accept')
+def decline():
+    return render_template('survey.html')
+
 @app.route('/decline')
 def decline():
     return render_template('decline.html')
