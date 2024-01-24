@@ -1,56 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Survey</title>
-        <script src="{{url_for('static', filename='js/formScript.js')}}" defer></script>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Survey Questions</h1>
-            <form class="pure-form pure-form-stacked" action="/thanks" method="post">
-                <fieldset>
-                    <div class="form-element">
-                        <!-- Input text box -->
-                        <label for="userInput">Your Input:</label>
-                        <input type="text" id="userInput" name="userInput" required minlength="3" placeholder="Type here...">
-                    </div>
-                    <div class="form-element">
-                        <!-- Radio button -->
-                        <label>Radio button</label>
-                        <label for="option1" class="pure-radio">
-                            <input type="radio" id="option1" name="options" value="option1" required>Option1
-                        </label>
-                        <label for="option2" class="pure-radio">
-                            <input type="radio" id="option2" name="options" value="option2" required>Option2
-                        </label>
-                        <label for="option3" class="pure-radio">
-                            <input type="radio" id="option3" name="options" value="option3" required>Option3
-                        </label>
-                    </div>
-                    <div class="form-element">
-                        <!-- Select box -->
-                        <label for="selectOption">Choose an Option:</label>
-                        <select id="selectOption" name="selectionOption" class="pure-input-1-4" required>
-                            <option value="">Please select an option!</option>
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                            <option value="option3">Option 3</option>
-                        </select>
-                    </div>
-                    <div class="form-element">
-                        <!-- Check box -->
-                        <label for="checkboxOption" class="pure-checkbox">
-                            <input type="checkbox" id="checkboxOption" name="checkboxOption" onchange="toggleTextArea(this);"> Check this if you want addition options
-                        </label>
-                    </div>
-                    <div class="form-element">
-                        <textarea id="conditionalTextarea" name="contidionalTextarea" style="display:none;" placeholder="More info"></textarea>
-                    </div>
-                    <button type="submit" class="pure-button pure-button-primary">Next</button>
-                </fieldset>
-            </form>
-            
-        </div>
-    </body>
-</html>
+{%extends 'base.html' %}
+
+{%block content%}
+<div class="container">
+    <h1>Survey Questions</h1>
+    <form class="pure-form pure-form-stacked" action="/thanks" method="post">
+        <fieldset>
+            <div class="form-element">
+                <!-- Input text box -->
+                <label for="userInput">Your Input:</label>
+                <input type="text" id="userInput" name="userInput" required minlength="3" placeholder="Type here...">
+            </div>
+            <div class="form-element">
+                <!-- Radio button -->
+                <label>Radio button</label>
+                <label for="option1" class="pure-radio">
+                    <input type="radio" id="option1" name="options" value="option1" required>Option1
+                </label>
+                <label for="option2" class="pure-radio">
+                    <input type="radio" id="option2" name="options" value="option2" required>Option2
+                </label>
+                <label for="option3" class="pure-radio">
+                    <input type="radio" id="option3" name="options" value="option3" required>Option3
+                </label>
+            </div>
+            <div class="form-element">
+                <!-- Select box -->
+                <label for="selectOption">Choose an Option:</label>
+                <select id="selectOption" name="selectionOption" class="pure-input-1-4" required>
+                    <option value="">Please select an option!</option>
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="option3">Option 3</option>
+                </select>
+            </div>
+            <div class="form-element">
+                <!-- Check box -->
+                <label for="checkboxOption" class="pure-checkbox">
+                    <input type="checkbox" id="checkboxOption" name="checkboxOption" onchange="toggleTextArea(this);"> Check this if you want addition options
+                </label>
+            </div>
+            <div class="form-element">
+                <textarea id="conditionalTextarea" name="contidionalTextarea" style="display:none;" placeholder="More info"></textarea>
+            </div>
+            <button type="submit" class="pure-button pure-button-primary">Next</button>
+        </fieldset>
+    </form>
+</div>
+{%endblock%}
