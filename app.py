@@ -17,6 +17,14 @@ def decline():
 @app.route('/thanks', methods=['POST', 'GET'])
 def thanks():
     if request.method == 'POST':
+        print(request.form['userInput'])
+        print(request.form['options'])
+        print(request.form['selectionOption'])
         return render_template('thanks.html')
     else:
         return redirect(url_for('index'))
+    
+@app.route('/hi', methods=['GET'])
+def hello_world():
+  user_name = request.args.get("userName", "unknown")
+  return render_template('main.html', user=user_name) 
