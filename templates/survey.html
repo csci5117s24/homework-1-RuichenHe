@@ -1,46 +1,74 @@
 {%extends 'base.html' %}
 
 {%block content%}
+
+<style>
+    .form-element > label:first-of-type {
+        display: block;
+        margin-top: 10px; /* Adds some space below the title */
+        margin-bottom: 10px; /* Adds some space below the title */
+    }
+</style>
+
 <div class="container">
     <h1>Survey Questions</h1>
     <form class="pure-form pure-form-stacked" action="/thanks" method="post">
         <fieldset>
             <div class="form-element">
                 <!-- Input text box -->
-                <label for="userInput">Your Input:</label>
+                <label for="userInput">Your Name:</label>
                 <input type="text" id="userInput" name="userInput" required minlength="3" placeholder="Type here...">
             </div>
             <div class="form-element">
                 <!-- Radio button -->
-                <label>Radio button</label>
+                <label>How familiar are you with generative AI art creation?</label>
                 <label for="option1" class="pure-radio">
-                    <input type="radio" id="option1" name="options" value="option1" required>Option1
+                    <input type="radio" id="option1" name="options" value="option1" required>Not at all familiar
                 </label>
                 <label for="option2" class="pure-radio">
-                    <input type="radio" id="option2" name="options" value="option2" required>Option2
+                    <input type="radio" id="option2" name="options" value="option2" required>Slightly familiar
                 </label>
                 <label for="option3" class="pure-radio">
-                    <input type="radio" id="option3" name="options" value="option3" required>Option3
+                    <input type="radio" id="option3" name="options" value="option3" required>Somewhat familiar
+                </label>
+                <label for="option4" class="pure-radio">
+                    <input type="radio" id="option4" name="options" value="option4" required>Moderately familiar
+                </label>
+                <label for="option5" class="pure-radio">
+                    <input type="radio" id="option5" name="options" value="option5" required>Familiar
+                </label>
+                <label for="option6" class="pure-radio">
+                    <input type="radio" id="option6" name="options" value="option6" required>Very familiar
+                </label>
+                <label for="option7" class="pure-radio">
+                    <input type="radio" id="option7" name="options" value="option7" required>Extremely familiar
                 </label>
             </div>
             <div class="form-element">
                 <!-- Select box -->
-                <label for="selectOption">Choose an Option:</label>
+                <label for="selectOption">How many artworks have you created using generative AI?</label>
                 <select id="selectOption" name="selectionOption" class="pure-input-1-4" required>
                     <option value="">Please select an option!</option>
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
-                    <option value="option3">Option 3</option>
+                    <option value="option1">None</option>
+                    <option value="option2">1-5 artworks</option>
+                    <option value="option3">6-10 artworks</option>
+                    <option value="option4">11-20 artworks</option>
+                    <option value="option5">21-50 artworks</option>
+                    <option value="option6">51-100 artworks</option>
+                    <option value="option7">More than 100 artworks</option>
                 </select>
             </div>
             <div class="form-element">
                 <!-- Check box -->
                 <label for="checkboxOption" class="pure-checkbox">
-                    <input type="checkbox" id="checkboxOption" name="checkboxOption" onchange="toggleTextArea(this);"> Check this if you want addition options
+                    <input type="checkbox" id="checkboxOption" name="checkboxOption" onchange="toggleTextArea(this);"> Would you consider yourself a novice in the field of art?
                 </label>
             </div>
             <div class="form-element">
-                <textarea id="conditionalTextarea" name="contidionalTextarea" style="display:none;" placeholder="More info"></textarea>
+                <p id="conditionalTextareaTitle" name="contidionalTextareaTitle" style="display:none;">
+                    What is your intended use for generative AI art creation?
+                </p>
+                <textarea id="conditionalTextarea" name="conditionalTextarea" style="display:none;" placeholder=" "></textarea>
             </div>
             <button type="submit" class="pure-button pure-button-primary">Next</button>
         </fieldset>
