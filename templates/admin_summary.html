@@ -1,0 +1,126 @@
+{%extends 'base.html' %}
+
+{%block content%}
+<div id="wordCloudContainer" style="width: 100%; height: 400px;"></div>
+<div class="container">
+    <h2>Summary of Familiarity</h2>
+    <canvas id="familiarityChart"></canvas>
+
+    <h2>Summary of Number of Artworks</h2>
+    <canvas id="artworksChart"></canvas>
+
+    <h2>Data Entries Over Time</h2>
+    <canvas id="timeSeriesChart"></canvas>
+    <h2>Intended Use Entries</h2>
+    <ul>
+        {% for intended_use in intended_uses %}
+            <li>{{ intended_use }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-bundle.min.js"></script>
+<script>
+    anychart.onDocumentReady(function() {
+        // Assuming "words" is an array of {x: <word>, value: <frequency>} objects
+        var data = {{ names|tojson|safe }};
+
+        // Create a word cloud chart
+        var chart = anychart.tagCloud(data);
+
+        // Configure the chart
+        chart.title('Artist Name Word Cloud');
+        chart.angles([0, -45, 45]);
+        chart.container('wordCloudContainer');
+        chart.draw();
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
+    
+<script>
+    var ctxFamiliarity = document.getElementById('familiarityChart').getContext('2d');
+    var familiarityChart = new Chart(ctxFamiliarity, {
+        type: 'bar',
+        data: {
+            labels: Object.keys({{ summary_data.familiarity|tojson|safe }}),
+            datasets: [{
+                label: 'Familiarity Levels',
+                data: Object.values({{ summary_data.familiarity|tojson|safe }}),
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1,
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+
+    var ctxArtworks = document.getElementById('artworksChart').getContext('2d');
+    var artworksChart = new Chart(ctxArtworks, {
+        type: 'bar',
+        data: {
+            labels: Object.keys({{ summary_data.number_of_artworks|tojson|safe }}),
+            datasets: [{
+                label: 'Number of Artworks',
+                data: Object.values({{ summary_data.number_of_artworks|tojson|safe }}),
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1,
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+
+    var ctxTime = document.getElementById('timeSeriesChart').getContext('2d');
+    var timeSeriesChart = new Chart(ctxTime, {
+        type: 'line',
+        data: {
+            labels: {{ dates|tojson|safe }},
+            datasets: [{
+                label: 'Data Entries per Day',
+                data: {{ counts|tojson|safe }},
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'day'
+                    }
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    
+</script>
+{%endblock%}
+
