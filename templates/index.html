@@ -1,10 +1,22 @@
 {%extends 'base.html' %}
 
 {%block content%}
-<div class="container">
-    <h1>Welcome to EchoSpective!</h1>
-    <p>Place holder</p>
-    <button type="consent" class="pure-button" onclick="location.href='/survey'">Consent</button>
-    <button type="decline" class="pure-button" onclick="location.href='/decline'">Decline</button>
+<h1>Welcome to EchoSpective!</h1>
+<div class="consent-container">
+    <p>Thank you for considering participation in our survey focused on the exploration of 
+        generative AI image generation tools. This research is designed to gather insights 
+        into how individuals perceive, use, and contemplate the ethical implications of these 
+        advanced technological tools. Your participation will involve responding to a series 
+        of questions, which we anticipate will take no more than a few minutes of your time. 
+        Please be assured that all responses will be treated with the utmost confidentiality, 
+        and no personally identifiable information will be collected. Your involvement in 
+        this study is entirely voluntary, and you have the freedom to withdraw at any point
+         without any consequences. Your valuable input will contribute significantly to our 
+         understanding of the societal impact of generative AI technologies.</p>
 </div>
+<div class="center-container">
+    <button type="consent" class="button_center pure-button" onclick="location.href='/survey'">Consent</button>
+    <button type="decline" class="button_center pure-button" onclick="location.href='/decline'">Decline</button>
+</div>
+</body>
 {%endblock%}

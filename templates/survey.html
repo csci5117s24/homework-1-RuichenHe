@@ -10,7 +10,7 @@
     }
 </style>
 
-<div class="container">
+<div class="survey-container">
     <h1>Survey Questions</h1>
     <form class="pure-form pure-form-stacked" action="/thanks" method="post">
         <fieldset>
@@ -70,8 +70,12 @@
                 </p>
                 <textarea id="conditionalTextarea" name="conditionalTextarea" style="display:none;" placeholder=" "></textarea>
             </div>
-            <button type="submit" class="pure-button pure-button-primary">Next</button>
         </fieldset>
+        <div class="center-container">
+            <button type="submit" class="button_center pure-button pure-button-primary">Submit</button>
+        </div>
     </form>
 </div>
+
+
 {%endblock%}

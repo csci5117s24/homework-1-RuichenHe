@@ -74,7 +74,7 @@ def get_db_cursor(commit = False):
 
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
 
