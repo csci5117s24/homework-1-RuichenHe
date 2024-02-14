@@ -45,6 +45,11 @@ number_of_artworks_mapping = {
     7: "More than 100 artworks"
 }
 
+novice_mapping = {
+    False: "Non-novice",
+    True: "Novice"
+}
+
 
 @app.before_request
 def setup():
@@ -89,17 +94,19 @@ def decline():
 @app.route('/thanks', methods=['POST', 'GET'])
 def thanks():
     if request.method == 'POST':
+        print(request.form.get('checkboxOption', 'off'))
         data = {
             "uuid": str(uuid.uuid4()),
             "name": request.form.get('userInput', 'None'),
             "familiarity": option_mapping.get(request.form.get('options', 'None'), 0),
             "number_of_artworks": option_mapping.get(request.form.get('selectionOption', 'None'), 0),
-            "intended_use": request.form.get('conditionalTextarea', 'None')
+            "intended_use": request.form.get('conditionalTextarea', 'None'),
+            "is_novice": request.form.get('checkboxOption', 'off') == 'on'
         }
         json_data = json.dumps(data)
         insert_query = """
-        INSERT INTO responses(uuid, name, familiarity, number_of_artworks, intended_use)
-        VALUES (%s, %s, %s, %s, %s)
+        INSERT INTO responses(uuid, name, familiarity, number_of_artworks, intended_use, is_novice)
+        VALUES (%s, %s, %s, %s, %s, %s)
         """
 
         with get_db_cursor(True) as cur:
@@ -109,7 +116,8 @@ def thanks():
                 data['name'],
                 data['familiarity'],
                 data['number_of_artworks'],
-                data['intended_use']
+                data['intended_use'],
+                data['is_novice']
             ))
 
         return render_template('thanks.html')
@@ -147,7 +155,7 @@ def get_results():
         return jsonify(results)
     
 def get_summary_data():
-    data = {'familiarity': {}, 'number_of_artworks': {}}
+    data = {'familiarity': {}, 'number_of_artworks': {}, 'is_novice': {}}
     with get_db_cursor(True) as cur:
         cur.execute("SELECT familiarity, COUNT(*) FROM responses GROUP BY familiarity")
         for description in familiarity_mapping.values():
@@ -160,6 +168,9 @@ def get_summary_data():
         cur.execute("SELECT number_of_artworks, COUNT(*) FROM responses GROUP BY number_of_artworks")
         for row in cur.fetchall():
             data['number_of_artworks'][number_of_artworks_mapping.get(row[0], "Unknown")] = row[1]
+        cur.execute("SELECT is_novice, COUNT(*) FROM responses GROUP BY is_novice")
+        for row in cur.fetchall():
+            data['is_novice'][novice_mapping.get(row[0], "Novice")] = row[1]
 
     return data
 
@@ -192,7 +203,7 @@ def get_name_data():
 def get_intended_use_data():
     with get_db_cursor(True) as cur:
         cur.execute("SELECT intended_use FROM responses ORDER BY created_at DESC")
-        intended_uses = [row[0] for row in cur.fetchall()]
+        intended_uses = [row[0] for row in cur.fetchall() if row[0] != ""]
     return intended_uses
     
 
