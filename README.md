@@ -6,7 +6,7 @@ You are required to fill out all of the following sections to help us grade your
 
 ## Student (to be completed individually)
 
-* First Last, he000239@umn.edu
+* Ruichen He, he000239@umn.edu
 
 ## Link to Site
 (This should be hosted, accessible, and working, per the technical requirements)
@@ -19,10 +19,10 @@ Please list any features you did not complete here, as well as any notes you hav
 
 ## Challenge Task
 
-* I started the challenge task: [yes/no]
-* I completed the challenge task: [yes/no]
+* I started the challenge task: yes
+* I completed the challenge task: yes
 
-(if applicable) link: <https://TODO.com/admin/summary>
+(if applicable) link: <https://echospective.onrender.com/admin/summary>
 
 ## Any Extra Notes?
 
