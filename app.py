@@ -126,21 +126,14 @@ def hello_world():
 @app.route('/api/results', methods=['GET'])
 def get_results():
     with get_db_cursor(True) as cur:
-
-        # Adjust the SELECT query to match your table name and columns
         reverse_order = request.args.get('reverse', 'false').lower() == 'true'
         if reverse_order:
             cur.execute("SELECT * FROM responses ORDER BY created_at DESC")
         else:
             cur.execute("SELECT * FROM responses ORDER BY created_at ASC")
 
-        # Fetch all rows from the last executed query
         records = cur.fetchall()
-
-        # Define column names as they appear in your database table
         column_names = [desc[0] for desc in cur.description]
-
-        # Convert query results to a list of dictionaries
         results = []
         for row in records:
             row_dict = dict(zip(column_names, row))
@@ -156,20 +149,16 @@ def get_results():
 def get_summary_data():
     data = {'familiarity': {}, 'number_of_artworks': {}}
     with get_db_cursor(True) as cur:
-        # Query to count occurrences of each familiarity level
         cur.execute("SELECT familiarity, COUNT(*) FROM responses GROUP BY familiarity")
         for description in familiarity_mapping.values():
             data['familiarity'][description] = 0
         for row in cur.fetchall():
-            # Assuming row[0] is the familiarity level, row[1] is the count
             data['familiarity'][familiarity_mapping.get(row[0], "Unknown")] = row[1]
 
         for description in number_of_artworks_mapping.values():
             data['number_of_artworks'][description] = 0
-        # Query to count occurrences of each number_of_artworks category
         cur.execute("SELECT number_of_artworks, COUNT(*) FROM responses GROUP BY number_of_artworks")
         for row in cur.fetchall():
-            # Assuming row[0] is the artworks category, row[1] is the count
             data['number_of_artworks'][number_of_artworks_mapping.get(row[0], "Unknown")] = row[1]
 
     return data
@@ -185,7 +174,7 @@ def get_time_series_data():
             ORDER BY DATE(created_at)
         """)
         for row in cur.fetchall():
-            dates.append(row[0].isoformat())  # Convert date to string if necessary
+            dates.append(row[0].isoformat())
             counts.append(row[1])
     return dates, counts
 
@@ -196,15 +185,13 @@ def get_name_data():
                     """) 
         names = [row[0] for row in cur.fetchall()]
     name_counts = Counter(names)
-    
-    # Convert the counts to the desired format
     data = [{"x": name, "value": count} for name, count in name_counts.items()]
     
     return data
 
 def get_intended_use_data():
     with get_db_cursor(True) as cur:
-        cur.execute("SELECT intended_use FROM responses ORDER BY created_at DESC")  # Consider adding a LIMIT here
+        cur.execute("SELECT intended_use FROM responses ORDER BY created_at DESC")
         intended_uses = [row[0] for row in cur.fetchall()]
     return intended_uses
     
