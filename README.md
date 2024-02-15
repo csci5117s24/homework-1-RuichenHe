@@ -15,7 +15,7 @@ You are required to fill out all of the following sections to help us grade your
 
 ## Task completion Notes
 
-Please list any features you did not complete here, as well as any notes you have.
+All features required for this homework have been completed. 
 
 ## Challenge Task
 
@@ -26,4 +26,4 @@ Please list any features you did not complete here, as well as any notes you hav
 
 ## Any Extra Notes?
 
-Fill in this with anything else you would like us to know about your submission.
+No extra note for this assignment. Have fun trying it out :)
